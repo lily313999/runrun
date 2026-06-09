@@ -1,0 +1,118 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    touch-action:manipulation;
+    font-family:sans-serif;
+}
+
+#game{
+    width:100vw;
+    height:100vh;
+    position:relative;
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+        to bottom,
+        #87ceeb 0%,
+        #dff4ff 70%,
+        #ffffff 100%
+    );
+}
+
+#ground{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:15%;
+    background:#7ec850;
+}
+
+#player{
+    position:absolute;
+    left:12%;
+    bottom:15%;
+
+    height:min(18vw,150px);
+    width:auto;
+
+
+    user-select:none;
+    pointer-events:none;
+}
+
+.monster{
+    position:absolute;
+    bottom:15%;
+
+    width:min(10vw,80px);
+    height:auto;
+}
+
+#ui{
+    position:absolute;
+    top:15px;
+    left:15px;
+    z-index:100;
+    font-size:clamp(18px,2vw,30px);
+    font-weight:bold;
+}
+
+#gameOver{
+    position:absolute;
+    inset:0;
+
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(0,0,0,0.7);
+    color:white;
+    z-index:999;
+}
+
+#gameOver h1{
+    font-size:clamp(40px,8vw,80px);
+}
+
+#gameOver p{
+    margin:20px;
+    font-size:clamp(20px,4vw,35px);
+}
+
+#restartBtn{
+    padding:15px 30px;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.invincible{
+    animation: glow 0.2s infinite alternate;
+}
+
+@keyframes glow{
+
+    from{
+        filter:
+            brightness(1.3)
+            drop-shadow(0 0 10px gold)
+            drop-shadow(0 0 20px gold);
+    }
+
+    to{
+        filter:
+            brightness(2)
+            drop-shadow(0 0 30px gold)
+            drop-shadow(0 0 60px yellow)
+            drop-shadow(0 0 90px white);
+    }
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>跑步閃怪物</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="game">
+
+    <div id="ui">
+        <div>分數：<span id="score">0</span></div>
+        <div>生命：<span id="life">3</span></div>
+    </div>
+
+    <div id="ground"></div>
+
+    <img id="player" src="images/run.png">
+
+    <div id="monsterContainer"></div>
+
+    <div id="gameOver">
+        <h1>GAME OVER</h1>
+        <p>最終分數：<span id="finalScore"></span></p>
+        <button id="restartBtn">重新開始</button>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
