@@ -85,7 +85,10 @@ function createMonster() {
 
 function update() {
 
-    if (!gameRunning && !dead) return;
+    if (!gameRunning && dead) {
+        return;
+    }
+
 
     score += 0.1;
 
