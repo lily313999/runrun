@@ -1,5 +1,6 @@
 const player = document.getElementById("player");
 const monsterContainer = document.getElementById("monsterContainer");
+const game = document.getElementById("game");
 
 const scoreText = document.getElementById("score");
 const lifeText = document.getElementById("life");
@@ -38,11 +39,19 @@ function jump() {
     }
 }
 
+// 電腦點擊跳躍
 window.addEventListener("mousedown", jump);
 
-window.addEventListener(
+// 手機觸控跳躍
+game.addEventListener(
     "touchstart",
     function (e) {
+
+        // 點到按鈕時不要跳躍
+        if (e.target.id === "restartBtn") {
+            return;
+        }
+
         e.preventDefault();
         jump();
     },
@@ -76,6 +85,8 @@ function createMonster() {
 
 function update() {
 
+    if (!gameRunning && !dead) return;
+
     score += 0.1;
 
     scoreText.textContent =
@@ -103,7 +114,6 @@ function update() {
     player.style.transform =
         `translateY(${-playerY}px)`;
 
-    // 死亡後停止怪物與碰撞
     if (!dead) {
 
         const speed =
@@ -166,7 +176,7 @@ function update() {
                         return;
                     }
 
-                    // 一般受傷
+                    // 受傷
                     player.src = "images/hurt.png";
 
                     invincible = true;
@@ -218,10 +228,23 @@ function gameOver() {
         "flex";
 }
 
-restartBtn.addEventListener("click", () => {
-
+// 重新開始
+function restartGame() {
     location.reload();
-});
+}
+
+restartBtn.addEventListener(
+    "click",
+    restartGame
+);
+
+restartBtn.addEventListener(
+    "touchend",
+    function(e){
+        e.preventDefault();
+        restartGame();
+    }
+);
 
 createMonster();
 update();
