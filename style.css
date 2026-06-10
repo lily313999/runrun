@@ -122,3 +122,17 @@ body{
             drop-shadow(0 0 90px white);
     }
 }
+
+.coin{
+
+    position:absolute;
+
+    width:min(8vw,80px);  //6vw,50px
+
+    height:auto;
+
+    z-index:20;
+
+    pointer-events:none;
+}
+
