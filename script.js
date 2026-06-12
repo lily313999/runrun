@@ -30,6 +30,39 @@ let monsters = [];
 
 let coins = [];
 
+
+function updateViewportHeight(){
+
+    document.documentElement.style.setProperty(
+        "--vh",
+        `${window.innerHeight * 0.01}px`
+    );
+}
+
+updateViewportHeight();
+
+window.addEventListener(
+    "resize",
+    updateViewportHeight
+);
+
+window.addEventListener(
+    "orientationchange",
+    updateViewportHeight
+);
+
+// ====================
+// 地板高度統一
+// ====================
+
+function getGroundHeight(){
+
+    return Math.max(
+        window.innerHeight * 0.15,
+        80
+    );
+}
+
 function jump() {
 
     if (jumping || !gameRunning || dead) return;
@@ -76,7 +109,7 @@ function createMonster() {
 
     monsters.push({
         el: monster,
-        x: window.innerWidth * 1.1,
+        x: game.clientWidth + 100,
         hit: false
     });
 
@@ -333,13 +366,13 @@ function spawnGroundCoins(){
         Math.floor(Math.random() * 4) + 3;
 
     const startX =
-        window.innerWidth + 300;
+        game.clientWidth + 300;
 
     for(let i=0;i<count;i++){
 
         createCoin(
             startX + i * 80,
-            window.innerHeight * 0.15 + 20
+            getGroundHeight() + 20
         );
     }
 }
@@ -350,10 +383,10 @@ function spawnVerticalCoins(){
     const count = 4;
 
     const x =
-        window.innerWidth + 300;
+        game.clientWidth + 300;
 
     const baseY =
-        window.innerHeight * 0.15 +
+        getGroundHeight() +
         80 +
         Math.random()*100;
 
@@ -370,8 +403,8 @@ function spawnVerticalCoins(){
 function spawnBigCoin(){
 
     createCoin(
-        window.innerWidth + 300,
-        window.innerHeight * 0.15 + 30,
+        game.clientWidth + 300,
+        getGroundHeight() + 30,
         true
     );
 }
