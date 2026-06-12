@@ -205,7 +205,23 @@ body{
     .coin{
         width:clamp(25px,5vh,50px);
     }
+
+    #startImage{
+        max-width:75vw;
+        max-height:55vh;
+    }
+
 }
+
+/* 直式手機 */
+@media (orientation:portrait){
+
+    #startImage{
+        max-width:90vw;
+        max-height:60vh;
+    }
+}
+
 
 #startScreen{
     position:absolute;
