@@ -15,7 +15,7 @@ let score = 0;
 let life = 3;
 
 let jumping = false;
-let gameRunning = true;
+let gameRunning = false;
 let dead = false;
 
 let playerY = 0;
@@ -83,15 +83,21 @@ game.addEventListener(
     "touchstart",
     function (e) {
 
-        // 點到按鈕時不要跳躍
-        if (e.target.id === "restartBtn") {
+        if (
+            e.target.id === "restartBtn" ||
+            e.target.id === "startBtn"
+        ) {
+            return;
+        }
+
+        if (!gameRunning) {
             return;
         }
 
         e.preventDefault();
         jump();
     },
-    { passive: false }
+    { passive:false }
 );
 
 function createMonster() {
@@ -498,6 +504,131 @@ restartBtn.addEventListener(
     }
 );
 
-createMonster();
-createCoinGroup();
-update();
+// ====================
+// 開始畫面
+// ====================
+
+const startScreen =
+    document.getElementById(
+        "startScreen"
+    );
+
+const loadingScreen =
+    document.getElementById(
+        "loadingScreen"
+    );
+
+const loadingText =
+    document.getElementById(
+        "loadingText"
+    );
+
+const startBtn =
+    document.getElementById(
+        "startBtn"
+    );
+
+
+// 遊戲先暫停
+gameRunning = false;
+
+
+// 所有圖片
+const imageList = [
+
+    "images/run.png",
+    "images/jump.png",
+    "images/hurt.png",
+    "images/dead.png",
+    "images/dead_last.png",
+
+    "images/monster.png",
+
+    "images/coin.png",
+    "images/bigcoin.png",
+
+    "images/start.png"
+];
+
+
+// 預載圖片
+function preloadImages(){
+
+    return new Promise(resolve=>{
+
+        let loaded = 0;
+
+        imageList.forEach(src=>{
+
+            const img =
+                new Image();
+
+            img.onload = loadedOne;
+            img.onerror = loadedOne;
+
+            img.src = src;
+        });
+
+        function loadedOne(){
+
+            loaded++;
+
+            const percent =
+                Math.floor(
+                    loaded /
+                    imageList.length *
+                    100
+                );
+
+            loadingText.textContent =
+                `Loading...${percent}%`;
+
+            if(
+                loaded >=
+                imageList.length
+            ){
+
+                resolve();
+            }
+        }
+    });
+}
+
+
+// 開始按鈕
+startBtn.addEventListener(
+    "click",
+async function startGame(){
+
+    startBtn.disabled = true;
+
+    startScreen.style.display = "none";
+
+    loadingScreen.style.display = "flex";
+
+    await preloadImages();
+
+    loadingScreen.style.display = "none";
+
+    gameRunning = true;
+
+    createMonster();
+    createCoinGroup();
+    update();
+}
+);
+
+startBtn.addEventListener(
+    "click",
+    startGame
+);
+
+startBtn.addEventListener(
+    "touchend",
+    function(e){
+
+        e.preventDefault();
+
+        startGame();
+    }
+);

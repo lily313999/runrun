@@ -259,6 +259,14 @@ body{
     font-size:28px;
 
     cursor:pointer;
+
+    position:relative;
+    z-index:3000;
+
+    touch-action:manipulation;
+
+    -webkit-tap-highlight-color:transparent;
+
 }
 
 #loadingScreen{
